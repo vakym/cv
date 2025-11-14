@@ -12,6 +12,12 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
+      # Копируем все нужные файлы в build 
+      - name: Copy static files
+        run: |
+          mkdir -p build
+          cp -r cv/* build/ 
+
       # Генерация PDF из HTML-файла
       - name: Convert HTML to PDF
         uses: fifsky/html-to-pdf-action@master
@@ -19,12 +25,6 @@ jobs:
           htmlFile: ./cv_now.html 
           outputFile: ./build/resume_avvakumov.pdf
           pdfOptions: '{"format": "A4", "margin": {"top": "10mm", "left": "10mm", "right": "10mm", "bottom": "10mm"}}'
-
-      # Копируем все нужные файлы в build 
-      - name: Copy static files
-        run: |
-          mkdir -p build
-          cp -r cv/* build/ 
 
       # Загрузка всех файлов папки build/ в Object Storage Яндекс Облака
       - name: Upload to Yandex Object Storage
