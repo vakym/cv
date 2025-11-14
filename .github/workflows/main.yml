@@ -17,12 +17,24 @@ jobs:
         run: |
           mkdir -p build
           cp -r cv/* build/ 
+      
+      # Генерируем версию (например, на основе даты и коммита)
+      - name: Generate version
+        id: version
+        run: |
+          VERSION=$(date +%Y.%m.%d)-${{ github.sha:0:7 }}
+          echo "VERSION=$VERSION" >> $GITHUB_OUTPUT
+
+      # Заменяем плейсхолдер в HTML на версию
+      - name: Replace version in HTML
+        run: |
+          sed -i 's/__VERSION__/${{ steps.version.outputs.VERSION }}/g' ./build/cv_now.html
 
       # Генерация PDF из HTML-файла
       - name: Convert HTML to PDF
         uses: fifsky/html-to-pdf-action@master
         with:
-          htmlFile: ./cv/cv_now.html
+          htmlFile: ./build/cv_now.html
           outputFile: ./build/resume_avvakumov.pdf
           pdfOptions: '{"format": "A4", "margin": {"top": "0mm", "left": "10mm", "right": "10mm", "bottom": "0mm"}, "scale": 0.95, "displayHeaderFooter": false, "pageRanges": "1"}'
 
