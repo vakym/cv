@@ -1,0 +1,22 @@
+name: Upload static files to Yandex Cloud Object Storage
+
+on:
+  push:
+    branches:
+      - main 
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Upload files to Object Storage
+        uses: yc-actions/yc-obj-storage-upload@v3
+        with:
+          yc-sa-json-credentials: ${{ secrets.YC_SA_JSON_CREDENTIALS }} # либо YC_SA_ID, ACCESS_KEY_ID/SECRET_ACCESS_KEY
+          bucket: ${{ secrets.BUCKET }}
+          root: ./cv
+          include: |
+            **/*
+          clear: false  # если нужно очищать bucket перед загрузкой
