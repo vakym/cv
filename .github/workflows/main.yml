@@ -14,6 +14,7 @@ jobs:
 
       # Копируем все нужные файлы в build 
       - name: Copy static files
+        if: success()
         run: |
           mkdir -p build
           cp -r cv/* build/ 
@@ -28,12 +29,14 @@ jobs:
 
       # Заменяем плейсхолдер в HTML на версию
       - name: Replace version in HTML
+        if: success()
         run: |
           sed -i 's/__VERSION__/${{ steps.version.outputs.VERSION }}/g' ./build/cv_now.html
 
       # Генерация PDF из HTML-файла
       - name: Convert HTML to PDF
         uses: fifsky/html-to-pdf-action@master
+        if: success()
         with:
           htmlFile: ./build/cv_now.html
           outputFile: ./build/resume_avvakumov.pdf
@@ -42,6 +45,7 @@ jobs:
       # Загрузка всех файлов папки build/ в Object Storage Яндекс Облака
       - name: Upload to Yandex Object Storage
         uses: yc-actions/yc-obj-storage-upload@v3
+        if: success()
         with:
           yc-sa-json-credentials: ${{ secrets.YC_SA_JSON_CREDENTIALS }}
           bucket: ${{ secrets.BUCKET }}
