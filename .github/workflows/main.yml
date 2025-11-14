@@ -18,15 +18,13 @@ jobs:
           mkdir -p build
           cp -r cv/* build/ 
 
-      - name: where??
-        run: ls
       # Генерация PDF из HTML-файла
       - name: Convert HTML to PDF
         uses: fifsky/html-to-pdf-action@master
         with:
           htmlFile: ./cv/cv_now.html
           outputFile: ./build/resume_avvakumov.pdf
-          pdfOptions: '{"format": "A4", "margin": {"top": "10mm", "left": "10mm", "right": "10mm", "bottom": "10mm"}}'
+          pdfOptions: '{"format": "A4", "margin": {"top": "5mm", "left": "10mm", "right": "10mm", "bottom": "5mm"}}'
 
       # Загрузка всех файлов папки build/ в Object Storage Яндекс Облака
       - name: Upload to Yandex Object Storage
