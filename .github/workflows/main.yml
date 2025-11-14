@@ -18,11 +18,13 @@ jobs:
           mkdir -p build
           cp -r cv/* build/ 
 
+      - name: where??
+        run: ls
       # Генерация PDF из HTML-файла
       - name: Convert HTML to PDF
         uses: fifsky/html-to-pdf-action@master
         with:
-          htmlFile: file:///github/workspace/cv/cv_now.html
+          htmlFile: ./cv/cv_now.html
           outputFile: ./build/resume_avvakumov.pdf
           pdfOptions: '{"format": "A4", "margin": {"top": "10mm", "left": "10mm", "right": "10mm", "bottom": "10mm"}}'
 
