@@ -1,22 +1,38 @@
-name: Upload static files to Yandex Cloud Object Storage
+name: Generate PDF and Upload to Yandex Cloud Object Storage
 
 on:
   push:
     branches:
-      - main 
+      - main
 
 jobs:
-  deploy:
+  build-pdf-and-upload:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout repository
+        uses: actions/checkout@v3
 
-      - name: Upload files to Object Storage
+      # Генерация PDF из HTML-файла
+      - name: Convert HTML to PDF
+        uses: fifsky/html-to-pdf-action@master
+        with:
+          htmlFile: ./cv_now.html 
+          outputFile: ./build/resume_avvakumov.pdf
+          pdfOptions: '{"format": "A4", "margin": {"top": "10mm", "left": "10mm", "right": "10mm", "bottom": "10mm"}}'
+
+      # Копируем все нужные файлы в build 
+      - name: Copy static files
+        run: |
+          mkdir -p build
+          cp -r cv/* build/ 
+
+      # Загрузка всех файлов папки build/ в Object Storage Яндекс Облака
+      - name: Upload to Yandex Object Storage
         uses: yc-actions/yc-obj-storage-upload@v3
         with:
-          yc-sa-json-credentials: ${{ secrets.YC_SA_JSON_CREDENTIALS }} # либо YC_SA_ID, ACCESS_KEY_ID/SECRET_ACCESS_KEY
+          yc-sa-json-credentials: ${{ secrets.YC_SA_JSON_CREDENTIALS }}
           bucket: ${{ secrets.BUCKET }}
-          root: ./cv
+          root: ./build
           include: |
             **/*
-          clear: false  # если нужно очищать bucket перед загрузкой
+          clear: false
