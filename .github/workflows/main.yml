@@ -24,7 +24,7 @@ jobs:
         with:
           htmlFile: ./cv/cv_now.html
           outputFile: ./build/resume_avvakumov.pdf
-          pdfOptions: '{"format": "A4", "margin": {"top": "0mm", "left": "10mm", "right": "10mm", "bottom": "0mm"}}'
+          pdfOptions: '{"format": "A4", "margin": {"top": "0mm", "left": "10mm", "right": "10mm", "bottom": "0mm"}, "scale": 0.95, "displayHeaderFooter": false, "pageRanges": "1"}'
 
       # Загрузка всех файлов папки build/ в Object Storage Яндекс Облака
       - name: Upload to Yandex Object Storage
