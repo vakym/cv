@@ -22,7 +22,8 @@ jobs:
       - name: Generate version
         id: version
         run: |
-          VERSION="$(date +%Y.%m.%d)-${{ github.sha:0:7 }}"
+          SHA_SHORT=$(echo "${{ github.sha }}" | cut -c1-7)
+          VERSION="$(date +%Y.%m.%d)-${SHA_SHORT}"
           echo "VERSION=$VERSION" >> $GITHUB_OUTPUT
 
       # Заменяем плейсхолдер в HTML на версию
