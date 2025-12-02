@@ -33,6 +33,12 @@ jobs:
         run: |
           sed -i 's/__VERSION__/${{ steps.version.outputs.VERSION }}/g' ./build/cv_now.html
 
+       # Вставляем Id счетчика метрики
+      - name: Replace version in HTML
+        if: success()
+        run: |
+          sed -i 's/__METRIKA__/${{ secrets.METRIKA_ID }}/g' ./build/cv_now.html
+
       # Генерация PDF из HTML-файла
       - name: Convert HTML to PDF
         uses: fifsky/html-to-pdf-action@master
