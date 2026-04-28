@@ -34,7 +34,7 @@ jobs:
           sed -i 's/__VERSION__/${{ steps.version.outputs.VERSION }}/g' ./build/cv_now.html
 
        # Вставляем Id счетчика метрики
-      - name: Replace version in HTML
+      - name: Replace Metrica counter in HTML
         if: success()
         run: |
           sed -i 's/__METRIKA__/${{ secrets.METRIKA_ID }}/g' ./build/cv_now.html
@@ -57,17 +57,15 @@ jobs:
 
       - name: Copy build to server via SFTP
         run: |
-          # Диагностический batch - смотрим где мы находимся
           cat > /tmp/sftp_batch.txt << 'EOF'
-          pwd
-          ls -la
           cd /cv
-          pwd
-          ls -la
-          put build/cv_now.html cv_now.html
-          bye
           EOF
-          
+          for f in build/*; do
+            filename=$(basename "$f")
+            echo "put $f $filename" >> /tmp/sftp_batch.txt
+          done
+          echo "bye" >> /tmp/sftp_batch.txt
+
           sftp -i ~/.ssh/deploy_key \
                -P ${{ secrets.DEPLOY_PORT }} \
                -o StrictHostKeyChecking=no \
