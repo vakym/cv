@@ -47,6 +47,7 @@ jobs:
           htmlFile: ./build/cv_now.html
           outputFile: ./build/resume_avvakumov.pdf
           pdfOptions: '{"format": "A4", "margin": {"top": "0mm", "left": "10mm", "right": "10mm", "bottom": "0mm"}, "scale": 0.95, "displayHeaderFooter": false, "pageRanges": "1"}'
+      
       - name: Copy build to server
         uses: appleboy/scp-action@v0.1.7
         if: success()
@@ -56,26 +57,5 @@ jobs:
           key: ${{ secrets.DEPLOY_KEY }}
           port: ${{ secrets.DEPLOY_PORT }}
           source: "./build/*"
-          target: "/var/www/cv"
+          target: "/cv"
           strip_components: 1
-      # - name: Deploy to server
-      #   uses: appleboy/ssh-action@v1.0.3
-      #   with:
-      #     host: ${{ secrets.DEPLOY_HOST }}
-      #     username: ${{ secrets.DEPLOY_USER }}
-      #     key: ${{ secrets.DEPLOY_KEY }}
-      #     script: |
-      #       cd /var/www/cv
-      #       git pull origin main
-
-      # Загрузка всех файлов папки build/ в Object Storage Яндекс Облака
-      # - name: Upload to Yandex Object Storage
-      #   uses: yc-actions/yc-obj-storage-upload@v3
-      #   if: success()
-      #   with:
-      #     yc-sa-json-credentials: ${{ secrets.YC_SA_JSON_CREDENTIALS }}
-      #     bucket: ${{ secrets.BUCKET }}
-      #     root: ./build
-      #     include: |
-      #       **/*
-      #     clear: false
