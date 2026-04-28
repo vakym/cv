@@ -57,14 +57,16 @@ jobs:
 
       - name: Copy build to server via SFTP
         run: |
-          echo "cd /cv" > /tmp/sftp_batch.txt
-          for f in build/*; do
-            filename=$(basename "$f")
-            echo "put $f $filename" >> /tmp/sftp_batch.txt
-          done
-          echo "bye" >> /tmp/sftp_batch.txt
-          
-          cat /tmp/sftp_batch.txt
+          # Диагностический batch - смотрим где мы находимся
+          cat > /tmp/sftp_batch.txt << 'EOF'
+          pwd
+          ls -la
+          cd /cv
+          pwd
+          ls -la
+          put build/cv_now.html cv_now.html
+          bye
+          EOF
           
           sftp -i ~/.ssh/deploy_key \
                -P ${{ secrets.DEPLOY_PORT }} \
