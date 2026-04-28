@@ -49,15 +49,13 @@ jobs:
           pdfOptions: '{"format": "A4", "margin": {"top": "0mm", "left": "10mm", "right": "10mm", "bottom": "0mm"}, "scale": 0.95, "displayHeaderFooter": false, "pageRanges": "1"}'
       
       - name: Copy build to server
-        uses: appleboy/scp-action@v0.1.7
+        uses: wlixcc/SFTP-Deploy-Action@v1.2.4
         if: success()
         with:
-          host: ${{ secrets.DEPLOY_HOST }}
           username: ${{ secrets.DEPLOY_USER }}
-          key: ${{ secrets.DEPLOY_KEY }}
+          server: ${{ secrets.DEPLOY_HOST }}
           port: ${{ secrets.DEPLOY_PORT }}
-          passphrase: ${{ secrets.DEPLOY_PASSPHRASE }}
-          source: "./build/*"
-          target: "/cv"
-          debug: true
-          strip_components: 1
+          ssh_private_key: ${{ secrets.DEPLOY_KEY }}
+          local_path: ./build/*
+          remote_path: /cv
+          sftpArgs: '-o ConnectTimeout=5'
