@@ -59,4 +59,5 @@ jobs:
           passphrase: ${{ secrets.DEPLOY_PASSPHRASE }}
           source: "./build/*"
           target: "/cv"
+          debug: true
           strip_components: 1
