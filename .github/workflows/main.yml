@@ -5,6 +5,9 @@ on:
     branches:
       - main
 
+env:
+  IMAGE_NAME: ghcr.io/vakym/cv-site
+
 jobs:
   build-pdf-and-upload:
     runs-on: ubuntu-latest
