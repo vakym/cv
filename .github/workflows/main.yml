@@ -71,3 +71,29 @@ jobs:
                -o StrictHostKeyChecking=no \
                -b /tmp/sftp_batch.txt \
                ${{ secrets.DEPLOY_USER }}@${{ secrets.DEPLOY_HOST }}
+      # Логин в GHCR
+      - name: Log in to GHCR
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      # Метаданные образа (latest + sha tag)
+      - name: Extract Docker metadata
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ env.IMAGE_NAME }}
+          tags: |
+            type=raw,value=latest
+            type=sha
+
+      # Сборка и пуш Docker image
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
