@@ -54,13 +54,6 @@
             margin-left: 20px;
         }
 
-        .photo-placeholder {
-            color: #999;
-            text-align: center;
-            padding: 10px;
-            font-size: 11px;
-        }
-
         h1 {
             font-size: 18px;
             margin-bottom: 0px;
@@ -146,8 +139,34 @@
             background-color: #2980b9;
         }
 
-        @media print {
+        .lang-switcher {
+            display: inline-block;
+            margin-left: 10px;
+            border: 1px solid #3498db;
+            border-radius: 4px;
+            overflow: hidden;
+            font-size: 11px;
+            vertical-align: middle;
+        }
 
+        .lang-switcher a {
+            display: inline-block;
+            padding: 8px 12px;
+            text-decoration: none;
+            color: #3498db;
+            background: white;
+        }
+
+        .lang-switcher a.active {
+            background-color: #3498db;
+            color: white;
+        }
+
+        .lang-switcher a:hover:not(.active) {
+            background-color: #eaf4fb;
+        }
+
+        @media print {
             .no-print, .no-print * {
                 display: none !important;
             }
@@ -173,8 +192,13 @@
                     <strong>Город проживания:</strong> Санкт-Петербург
                 </div>
 
-                <a class="download-btn no-print" href="resume_avvakumov.pdf" download
-                    aria-label="Скачать резюме в формате PDF">Скачать резюме в формате PDF</a>
+                <div class="no-print" style="margin-top:10px;">
+                    <a class="download-btn" href="resume_avvakumov_ru.pdf" download
+                        aria-label="Скачать резюме в формате PDF">Скачать резюме (PDF)</a>
+                    <span class="lang-switcher">
+                        <a href="cv_now.html" class="active">RU</a><a href="cv_en.html">EN</a>
+                    </span>
+                </div>
             </div>
             <div class="photo">
                 <img src="photo.jpg" alt="Фото Аввакумов Евгений" style="width:100%;height:100%;object-fit:cover;">
@@ -186,7 +210,7 @@
             <ul>
                 <li><strong>Product Management:</strong> Product Discovery, разработка роадмапа,
                     приоритизация, A/B-тестирование</li>
-                <li><strong>Аналитика:</strong>SQL, продуктовые метрики (LTV, Retention, CR), проектирование метрик,
+                <li><strong>Аналитика:</strong> SQL, продуктовые метрики (LTV, Retention, CR), проектирование метрик,
                     анализ данных с применением ИИ, data-driven подход</li>
                 <li><strong>Методологии:</strong> Agile, Scrum, Kanban</li>
             </ul>
@@ -217,7 +241,7 @@
                         продавцов,
                         постановка метрик, аналитика, внедрение интерфейсных и бизнес-изменений, координация с командами
                         разработки и операциями.</p>
-                     <ul>
+                    <ul>
                         <li><strong>Выстраивал процесс подключения продавцов к маркетплейсу.</strong> Ключевые метрики: CR в выход на витрину — стала лучше на 34% по сравнению с исходным уровнем.</li>
                         <li><strong>Развитие реферальной программы.</strong> Запустил комплекс фич и бизнес-изменений,
                             что позволило увеличить количество привлечённых рефералов в 2,5 раза.</li>
@@ -228,59 +252,58 @@
                             метрику на 10 п.п.</li>
                     </ul>
                 </div>
-
-                <div class="job-item">
-                    <span class="job-title">Бекенд разработчик</span>
-                    <span class="date">2021 - 2023</span><p class="note" style="margin-top: 3px; margin-bottom: 3px;">2 г. 11 мес.</p>
-                    <span class="company">Яндекс.Маркет</span>
-                    <ul>
-                        <li>Разработал серию успешных проектов B2B продукта для партнеров</li>
-                        <li>Стек технологий: Java/Python/C++</li>
-                    </ul>
-                </div>
-
-                <div class="job-item">
-                    <span class="job-title">Инженер-программист</span>
-                    <span class="date">2016 - 2021</span><br>
-                    <span class="company">РиФ</span>
-                    <ul>
-                        <li>Разработал и продал систему оптико-электронного распознавания объектов на OpenCV/YOLO</li>
-                        <li>Разработал математические методы тестирования контрольно-корректирующей станции для
-                            Северного
-                            Морского пути</li>
-                        <li>Стек технологий: С#/Python/C++/C/TypeScript</li>
-                        <li>Устройства и ПО моей разработки работают в 5 крупных портах РФ</li>
-                    </ul>
-                </div>
             </div>
 
-            <div class="section">
-                <div class="section-title">Образование</div>
-                <div class="education-item">
-                    <strong>Бакалавр прикладной математики и информатики</strong><br>
-                    Санкт-Петербургский государственный университет (СПбГУ)<br>
-                    2013 год окончания
-                </div>
+            <div class="job-item">
+                <span class="job-title">Бекенд разработчик</span>
+                <span class="date">2021 — 2023</span>
+                <p class="note" style="margin-top: 3px; margin-bottom: 3px;">2 г. 11 мес.</p>
+                <span class="company">Яндекс.Маркет</span>
+                <ul>
+                    <li>Разработал серию успешных проектов B2B продукта для партнеров</li>
+                    <li>Стек технологий: Java/Python/C++</li>
+                </ul>
             </div>
 
-            <div class="section">
-                <div class="section-title">О себе</div>
-                <p>
-                    Продакт-менеджер с 10-летним опытом в IT, сильным техническим бэкграундом и опытом создания своего бизнеса.
-                    В поиске команды, смогу напрямую влиять на продукт и развивать бизнес.
-                    Стремлюсь к роли с интересными и амбициозными задачами, которые обеспечат
-                    мой профессиональный рост.
-                </p>
+            <div class="job-item">
+                <span class="job-title">Инженер-программист</span>
+                <span class="date">2016 — 2021</span><br>
+                <span class="company">РиФ</span>
+                <ul>
+                    <li>Разработал и продал систему оптико-электронного распознавания объектов на OpenCV/YOLO</li>
+                    <li>Разработал математические методы тестирования контрольно-корректирующей станции для Северного Морского пути</li>
+                    <li>Стек технологий: С#/Python/C++/C/TypeScript</li>
+                    <li>Устройства и ПО моей разработки работают в 5 крупных портах РФ</li>
+                </ul>
             </div>
-
-            <div class="note">
-                AI-Generated(DeepSeek-V3.2). За промтом, приходите в tg.
-                <p>Version: __VERSION__</p>
-            </div>
-            <div class="note">
-                <a href="https://forms.yandex.ru/u/68f0fe9090fa7b3360f46ef5/">Оставить отзыв о резюме</a>
-            </div>
-
         </div>
+
+        <div class="section">
+            <div class="section-title">Образование</div>
+            <div class="education-item">
+                <strong>Бакалавр прикладной математики и информатики</strong><br>
+                Санкт-Петербургский государственный университет (СПбГУ)<br>
+                2013 год окончания
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-title">О себе</div>
+            <p>
+                Продакт-менеджер с 10-летним опытом в IT, сильным техническим бэкграундом и опытом создания своего бизнеса.
+                В поиске команды, смогу напрямую влиять на продукт и развивать бизнес.
+                Стремлюсь к роли с интересными и амбициозными задачами, которые обеспечат
+                мой профессиональный рост.
+            </p>
+        </div>
+
+        <div class="note">
+            AI-Generated(DeepSeek-V3.2). За промтом, приходите в tg.
+            <p>Version: __VERSION__</p>
+        </div>
+        <div class="note">
+            <a href="https://forms.yandex.ru/u/68f0fe9090fa7b3360f46ef5/">Оставить отзыв о резюме</a>
+        </div>
+    </div>
 </body>
 </html>
