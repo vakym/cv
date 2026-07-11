@@ -31,7 +31,9 @@ jobs:
         run: |
           SHA_SHORT=$(echo "${{ github.sha }}" | cut -c1-7)
           VERSION="$(date +%Y.%m.%d)-${SHA_SHORT}"
+          TIMESTAMP=$(date +%Y%m%d%H%M%S)
           echo "VERSION=$VERSION" >> $GITHUB_OUTPUT
+          echo "TIMESTAMP=$TIMESTAMP" >> $GITHUB_OUTPUT
 
       # Заменяем плейсхолдер в HTML на версию
       - name: Replace version in HTML
@@ -62,7 +64,7 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      # Метаданные образа (latest + sha tag)
+      # Метаданные образа (latest + sha + timestamp)
       - name: Extract Docker metadata
         id: meta
         uses: docker/metadata-action@v5
@@ -71,6 +73,7 @@ jobs:
           tags: |
             type=raw,value=latest
             type=sha
+            type=raw,value=${{ steps.version.outputs.TIMESTAMP }}
 
       # Сборка и пуш Docker image
       - name: Build and push Docker image
