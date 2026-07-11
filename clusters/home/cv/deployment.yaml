@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: nginx
-        image: ghcr.io/vakym/cv-site:20260711115659 # {"$imagepolicy": "flux-system:cv-site-policy"}
+        image: ghcr.io/vakym/cv-site:20260711115800 # {"$imagepolicy": "flux-system:cv-site-policy"}
         imagePullPolicy: Always
         ports:
         - containerPort: 80
