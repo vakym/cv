@@ -54,29 +54,6 @@ jobs:
           outputFile: ./build/resume_avvakumov.pdf
           pdfOptions: '{"format": "A4", "margin": {"top": "0mm", "left": "10mm", "right": "10mm", "bottom": "0mm"}, "scale": 0.95, "displayHeaderFooter": false, "pageRanges": "1"}'
       
-      - name: Setup SSH key
-        run: |
-          mkdir -p ~/.ssh
-          echo "${{ secrets.DEPLOY_KEY }}" > ~/.ssh/deploy_key
-          chmod 600 ~/.ssh/deploy_key
-          ssh-keyscan -p ${{ secrets.DEPLOY_PORT }} ${{ secrets.DEPLOY_HOST }} >> ~/.ssh/known_hosts
-
-      - name: Copy build to server via SFTP
-        run: |
-          cat > /tmp/sftp_batch.txt << 'EOF'
-          cd /cv
-          EOF
-          for f in build/*; do
-            filename=$(basename "$f")
-            echo "put $f $filename" >> /tmp/sftp_batch.txt
-          done
-          echo "bye" >> /tmp/sftp_batch.txt
-
-          sftp -i ~/.ssh/deploy_key \
-               -P ${{ secrets.DEPLOY_PORT }} \
-               -o StrictHostKeyChecking=no \
-               -b /tmp/sftp_batch.txt \
-               ${{ secrets.DEPLOY_USER }}@${{ secrets.DEPLOY_HOST }}
       # Логин в GHCR
       - name: Log in to GHCR
         uses: docker/login-action@v3
